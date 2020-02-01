@@ -63,6 +63,17 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+        'logs' => [
+          'driver' => 'local',
+          'root' => storage_path('logs'),
+          'url' => env('APP_URL') . '/storage/logs',
+        ],
+        'ftp' => [
+          'driver'   => 'ftp',
+          'host'     => 'sksk777.xsrv.jp',
+          'username' => sksk777,
+          'password' => rpp8y90u,
+      ],
 
     ],
 

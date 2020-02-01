@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/sample', 'Sample\SampleController@index')->name('sample');
 Route::get('/hello', 'HelloController@index')->name('hello');
-Route::get('/hello/{msg}', 'HelloController@other');
-Route::post('/hello/other', 'HelloController@other');
+
+Route::get('/hello/{id}', 'HelloController@index');
+

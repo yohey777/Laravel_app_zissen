@@ -1,43 +1,34 @@
 <?php
 namespace App\Http\Controllers;
 
-// use App\Http\Controllers\Person;
+// use App\Http\Controllers\Persson;
 use App\Person;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;
+namespace App\Http\Controllers;
+
+
+use App\MyClasses\MyService;
+
+use Illuminate\Http\Response;
+
 
 class HelloController extends Controller
 {
-    private $fname;
-
-
-    public function __construct()
+    function __construct(MyService $myservice)
     {
-        $this->fname = 'hello.txt';
+        $myservice = app('App\MyClasses\MyService');
     }
 
 
-    public function index()
+    public function index(MyService $myservice, int $id = -1)
     {
-        $dir = '/';
-        $all = Storage::disk('local')->allfiles($dir);
-        
+        $myservice->setId($id);
         $data = [
-            'msg'=> 'DIR: ' . $dir,
-            'data'=> $all
+            'msg'=> $myservice->say($id),
+            'data'=> $myservice->alldata()
         ];
-        print_r($data);
         return view('hello.index', $data);
     }
-
-
-    public function other(Request $request)
-    {
-        Storage::disk('local')->
-            putFile('files', $request->file('file'));
-        return redirect()->route('hello');
-    
-    
-    }
-    
 }
+
