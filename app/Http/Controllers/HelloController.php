@@ -6,6 +6,7 @@ use App\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 
 use App\MyClasses\MyService;
@@ -21,14 +22,18 @@ class HelloController extends Controller
     }
 
 
-    public function index(MyService $myservice, int $id = -1)
-    {
-        $myservice->setId($id);
-        $data = [
-            'msg'=> $myservice->say($id),
-            'data'=> $myservice->alldata()
-        ];
-        return view('hello.index', $data);
-    }
+   
+
+
+public function index()
+{
+    $result = DB::table('people')->get();
+    $data = [
+        'msg' => 'Database access.',
+        'data' => $result,
+    ];
+    return view('hello.index', $data);
+}
+
 }
 
