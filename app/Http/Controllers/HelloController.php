@@ -21,19 +21,21 @@ class HelloController extends Controller
         $myservice = app('App\MyClasses\MyService');
     }
 
-
-   
-
-
-public function index()
-{
-    $result = DB::table('people')->get();
-    $data = [
-        'msg' => 'Database access.',
-        'data' => $result,
-    ];
-    return view('hello.index', $data);
-}
-
+    public function index($id)
+    {
+        $ids = explode(',', $id);
+        print_r($ids);
+        $msg = 'get people.';
+        $result = DB::table('people')
+            ->whereBetween('id', $ids)
+            ->get();
+    
+    
+        $data = [
+            'msg' => $msg,
+            'data' => $result,
+        ];
+        return view('hello.index', $data);
+    }
 }
 
